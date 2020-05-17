@@ -45,15 +45,15 @@ class User extends Model {
 
 	public static function verifyLogin($inadmin = true)
 	{
-		//Validações da sessão de usuário. Se não houver sessão ou se não for usuário adm redireciona para a página de login
+		
 		if (
-			!isset($_SESSION[User::SESSION])
+			!isset($_SESSION[User::SESSION]) // Valida se a sessão está definida
 			||
-			!$_SESSION[User::SESSION]
+			!$_SESSION[User::SESSION] // Valida se a sessão é falsa
 			||
-			!(int)$_SESSION[User::SESSION]["iduser"] > 0
+			!(int)$_SESSION[User::SESSION]["iduser"] > 0 // Valida o ID do usuário
 			||
-			(bool)$_SESSION[User::SESSION]["inadmin"] !== $inadmin
+			(bool)$_SESSION[User::SESSION]["inadmin"] !== $inadmin // Valida se o usuário é admin
 		) {
 			header("Location: /admin/login");
 			exit;
@@ -63,7 +63,7 @@ class User extends Model {
 
 	public static function logout()
 	{
-		
+
 		$_SESSION[User::SESSION] = NULL;
 
 	}
